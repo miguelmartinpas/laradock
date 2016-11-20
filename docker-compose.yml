@@ -10,7 +10,7 @@ services:
             args:
                 - INSTALL_XDEBUG=false
                 - INSTALL_MONGO=false
-                - INSTALL_NODE=true
+                - INSTALL_NODE=false
                 - INSTALL_YARN=false
                 - INSTALL_DRUSH=false
                 - INSTALL_AEROSPIKE_EXTENSION=false
@@ -27,7 +27,6 @@ services:
             - "dockerhost:10.0.75.1"
         ports:
            - "2222:22"
-           - "8000:8000"
         tty: true
 
 ### PHP-FPM Container #######################################
@@ -55,6 +54,15 @@ services:
         environment:
             # IMPORTANT: Set the Remote Interpreter entry matching name to `laravel`
             - PHP_IDE_CONFIG="serverName=laravel"
+
+### hapijs ##################################
+
+    hapijs:
+      build: ./hapijs
+      ports:
+          - "8001:8001"
+      volumes_from:
+          - volumes_source
 
 ### Nginx Server Container ##################################
 
